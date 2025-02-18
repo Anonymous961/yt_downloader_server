@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 from yt_dlp import YoutubeDL  # Use yt-dlp instead of youtube_dl
 from flask_cors import CORS
 import traceback
+
 # from flask_limiter import Limiter
 # from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 
 CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
+
 
 # limiter = Limiter(
 #     app=app,
@@ -65,7 +67,7 @@ def download_video():
     except Exception as e:
         # Handle any errors
         error_message = traceback.format_exc()
-        return jsonify({'error': str(e), 'trace': error_message}), 500
+        return jsonify({'error': str(e), 'trace': error_message, "xtra": "just checking"}), 500
 
 
 if __name__ == '__main__':
