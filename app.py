@@ -6,7 +6,7 @@ from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
 
 limiter = Limiter(
     app=app,
