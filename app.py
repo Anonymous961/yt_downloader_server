@@ -1,18 +1,18 @@
 from flask import Flask, request, jsonify
 from yt_dlp import YoutubeDL  # Use yt-dlp instead of youtube_dl
 from flask_cors import CORS
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+# from flask_limiter import Limiter
+# from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 
 CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
 
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
-)
+# limiter = Limiter(
+#     app=app,
+#     key_func=get_remote_address,
+#     default_limits=["200 per day", "50 per hour"]
+# )
 
 @app.route('/health')
 def health_check():
