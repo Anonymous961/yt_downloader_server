@@ -19,7 +19,7 @@ CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
 
 @app.route('/health')
 def health_check():
-    return jsonify({'status': 'OK'})
+    return jsonify({'status': 'sab sahi h bhai'})
 
 
 @app.route('/download', methods=['POST'])
