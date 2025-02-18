@@ -21,7 +21,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_IP }} "
-            cd ~/myapp &&
+            cd ~/myapp/yt_downloader_server/ &&
             git pull origin main &&
             source venv/bin/activate &&
             pip install -r requirements.txt &&
