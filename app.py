@@ -1,27 +1,15 @@
 from flask import Flask, request, jsonify
-from yt_dlp import YoutubeDL  # Use yt-dlp instead of youtube_dl
+from yt_dlp import YoutubeDL
 from flask_cors import CORS
 import traceback
 import os
 
-# from flask_limiter import Limiter
-# from flask_limiter.util import get_remote_address
-
 app = Flask(__name__)
-
 CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
-
-
-# limiter = Limiter(
-#     app=app,
-#     key_func=get_remote_address,
-#     default_limits=["200 per day", "50 per hour"]
-# )
 
 @app.route('/health')
 def health_check():
-    return jsonify({'status': 'temp check 3'})
-
+    return jsonify({'status': 'temp check 4'})
 
 @app.route('/download', methods=['POST'])
 def download_video():
@@ -29,7 +17,7 @@ def download_video():
         # Get the YouTube URL from the request body
         data = request.json
         url = data.get('url')
-        user_cookies= data.get('cookies')
+        user_cookies = data.get('cookies')
 
         # Validate the URL
         if not url:
@@ -76,8 +64,7 @@ def download_video():
     except Exception as e:
         # Handle any errors
         error_message = traceback.format_exc()
-        return jsonify({'error': str(e), 'trace': error_message, "xtra": "just checking"}), 500
-
+        return jsonify({'error': str(e), 'trace': error_message,"cookies":user_cookies, "xtra": "just checking"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
