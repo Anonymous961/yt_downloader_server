@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from yt_dlp import YoutubeDL  # Use yt-dlp instead of youtube_dl
 from flask_cors import CORS
 import traceback
+import os
 
 # from flask_limiter import Limiter
 # from flask_limiter.util import get_remote_address
@@ -19,7 +20,7 @@ CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
 
 @app.route('/health')
 def health_check():
-    return jsonify({'status': 'temp check'})
+    return jsonify({'status': 'temp check 2'})
 
 
 @app.route('/download', methods=['POST'])
@@ -33,12 +34,14 @@ def download_video():
         if not url:
             return jsonify({'error': 'URL is required'}), 400
 
+        COOKIES_PATH = os.path.join(os.getcwd(), "cookies.txt")  # Get full path
+
         # Configure yt-dlp options
         ydl_opts = {
             'format': 'best',  # Download the best quality available
             'outtmpl': '%(title)s.%(ext)s',  # Output file name
             'noplaylist': True,  # Ensure only a single video is downloaded
-            'cookies': "cookies.txt"
+            'cookies': COOKIES_PATH,  # Use full path
         }
 
         # Fetch video details
