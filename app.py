@@ -38,6 +38,7 @@ def download_video():
             'format': 'best',  # Download the best quality available
             'outtmpl': '%(title)s.%(ext)s',  # Output file name
             'noplaylist': True,  # Ensure only a single video is downloaded
+            'cookies': "cookies.txt"
         }
 
         # Fetch video details
