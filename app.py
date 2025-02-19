@@ -20,7 +20,7 @@ CORS(app, resources={r"/download": {"origins": "*"}}, supports_credentials=True)
 
 @app.route('/health')
 def health_check():
-    return jsonify({'status': 'temp check 2'})
+    return jsonify({'status': 'temp check 3'})
 
 
 @app.route('/download', methods=['POST'])
@@ -29,12 +29,17 @@ def download_video():
         # Get the YouTube URL from the request body
         data = request.json
         url = data.get('url')
+        user_cookies= data.get('cookies')
 
         # Validate the URL
         if not url:
             return jsonify({'error': 'URL is required'}), 400
 
         COOKIES_PATH = os.path.join(os.getcwd(), "cookies.txt")  # Get full path
+
+        if user_cookies:
+            with open(COOKIES_PATH, "w", encoding="utf-8") as f:
+                f.write(user_cookies)
 
         # Configure yt-dlp options
         ydl_opts = {
